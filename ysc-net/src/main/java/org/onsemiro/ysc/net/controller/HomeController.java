@@ -13,6 +13,6 @@ public class HomeController {
     }
 	
 	@GetMapping("home")
-    public void home(Model model) {
-    }
+	public void home(Model model) {
+	}
 }
