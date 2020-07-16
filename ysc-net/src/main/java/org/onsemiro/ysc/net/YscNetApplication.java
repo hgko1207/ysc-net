@@ -16,5 +16,4 @@ public class YscNetApplication extends SpringBootServletInitializer {
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(YscNetApplication.class);
 	}
-
 }

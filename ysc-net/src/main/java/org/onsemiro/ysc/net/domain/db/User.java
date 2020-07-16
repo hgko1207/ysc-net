@@ -42,6 +42,9 @@ public class User implements Domain {
 	@Column(nullable = false, length = 20)
 	private String name;
 	
+	@Column(nullable = false, length = 20)
+	private String tel;
+	
 	@CreationTimestamp
 	private LocalDateTime createDate;
 	
