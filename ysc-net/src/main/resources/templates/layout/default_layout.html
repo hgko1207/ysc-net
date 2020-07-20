@@ -3,12 +3,15 @@
 <head>
 	<!-- config fragment 사용 -->
 	<th:block th:replace="fragment/config :: configFragment"></th:block>
+	
+	<!-- config fragment 사용 -->
+	<th:block th:replace="fragment/script :: scriptFragment"></th:block>
 </head>
 <body  id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable">
 
 	<div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
 		<a th:href="@{home}">
-			<img alt="Logo" th:src="@{images/logo-light.png}">
+			<img alt="Logo" th:src="@{/images/logo-light.png}">
 		</a>
 		<div class="d-flex align-items-center">
 			<!--begin::Aside Mobile Toggle-->
@@ -57,9 +60,6 @@
 			</div>
 		</div>
 	</div>
-	
-	<!-- config fragment 사용 -->
-	<th:block th:replace="fragment/script :: scriptFragment"></th:block>
 	
 	<!-- Content Page의 script fragment 삽입 -->
 	<th:block layout:fragment="script"></th:block>
