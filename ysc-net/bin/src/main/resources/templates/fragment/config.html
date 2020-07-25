@@ -1,0 +1,35 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- configFragment 선언 -->
+<th:block th:fragment="configFragment">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+	<title>학교내 방과후 시스템</title>
+	
+	<link id="contextPathHolder" th:data-contextPath="${#httpServletRequest.getContextPath()}"/>
+	
+	<!-- Global stylesheets -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet"/>
+	<link th:href="@{/metronic/plugins/global/plugins.bundle.css}" rel="stylesheet"/>
+	<link th:href="@{/metronic/plugins/custom/prismjs/prismjs.bundle.css}" rel="stylesheet"/>
+	<link th:href="@{/metronic/css/style.bundle.min.css}" rel="stylesheet"/>
+	<!-- /Global stylesheets -->
+	
+	<!-- Themes stylesheets -->
+	<link th:href="@{/metronic/css/themes/layout/header/base/light.min.css}" rel="stylesheet"/>
+	<link th:href="@{/metronic/css/themes/layout/header/menu/light.min.css}" rel="stylesheet"/>
+	<link th:href="@{/metronic/css/themes/layout/brand/dark.min.css}" rel="stylesheet"/>
+	<link th:href="@{/metronic/css/themes/layout/aside/light.min.css}" rel="stylesheet"/>
+	<!-- /Themes stylesheets -->
+		
+	<!-- Common stylesheets -->
+	<link th:href="@{/css/common/common.css}" rel="stylesheet"/>
+	<!-- /Common stylesheets -->
+
+	<!-- Content Page의 CSS fragment 삽입 -->
+	<th:block layout:fragment="css"></th:block>
+</th:block>
+</html>
