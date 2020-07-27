@@ -6,24 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 사용자 관리 컨트롤러 클래스
+ * 공지사항 관리 컨트롤러 클래스
  * 
  * @author hgko
  *
  */
 @Controller
-@RequestMapping("user")
-public class UserController {
+@RequestMapping("notice")
+public class NoticeController {
 
-	@GetMapping("general")
-	public void general(Model model) {
-	}
-	
-	@GetMapping("teacher")
-	public void teacher(Model model) {
-	}
-	
-	@GetMapping("student")
-	public void student(Model model) {
+	@GetMapping("main")
+	public void main(Model model) {
 	}
 }
