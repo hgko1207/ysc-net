@@ -15,15 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("user")
 public class UserController {
 
-	@GetMapping("general")
-	public void general(Model model) {
-	}
-	
-	@GetMapping("teacher")
-	public void teacher(Model model) {
-	}
-	
-	@GetMapping("student")
-	public void student(Model model) {
+	@GetMapping("list")
+	public void list(Model model) {
 	}
 }

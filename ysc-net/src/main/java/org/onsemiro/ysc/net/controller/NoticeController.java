@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("notice")
 public class NoticeController {
 
-	@GetMapping("main")
-	public void main(Model model) {
+	@GetMapping("list")
+	public void list(Model model) {
+	}
+	
+	@GetMapping("regist")
+	public void regist(Model model) {
 	}
 }
