@@ -1,5 +1,7 @@
 package org.onsemiro.ysc.net.domain.db;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.onsemiro.ysc.net.domain.Domain;
 
 import lombok.Data;
@@ -28,4 +32,20 @@ public class Family implements Domain {
 	
 	@Column(nullable = false, length = 20)
 	private String name;
+	
+	@Column(nullable = false, length = 20)
+	private String tel;
+	
+	/** 부서 */
+	@Column(length = 45)
+	private String dept;
+	
+	@Column(length = 255)
+	private String content;
+	
+	@CreationTimestamp
+	private LocalDateTime createDate;
+	
+	@UpdateTimestamp
+	private LocalDateTime updateDate;
 }

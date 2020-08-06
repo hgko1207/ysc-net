@@ -33,6 +33,7 @@ public class Business implements Domain {
 	@Column(nullable = false, length = 100)
 	private String name;
 	
+	/** 상세 정보 */
 	@Column(nullable = false, length = 255)
 	private String content;
 	
