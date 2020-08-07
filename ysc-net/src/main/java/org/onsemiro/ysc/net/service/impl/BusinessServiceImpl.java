@@ -3,6 +3,7 @@ package org.onsemiro.ysc.net.service.impl;
 import java.util.List;
 
 import org.onsemiro.ysc.net.domain.db.Business;
+import org.onsemiro.ysc.net.domain.param.SearchParam;
 import org.onsemiro.ysc.net.repository.BusinessRepository;
 import org.onsemiro.ysc.net.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,11 @@ public class BusinessServiceImpl implements BusinessService {
 
 	private boolean isNew(Business domain) {
 		return !businessRepository.existsById(domain.getId());
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Business> getList(SearchParam param) {
+		return businessRepository.findAll();
 	}
 }
