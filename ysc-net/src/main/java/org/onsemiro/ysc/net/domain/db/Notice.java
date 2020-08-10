@@ -31,7 +31,7 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name = "tb_business")
+@Table(name = "tb_notice")
 @Data
 public class Notice implements Domain {
 
@@ -45,16 +45,20 @@ public class Notice implements Domain {
 	@UpdateTimestamp
 	private LocalDateTime updateDate;
 	
+	/** 제목 */
 	@NotNull
 	private String title;
 	
+	/** 내용 */
 	@Lob
 	@NotNull
 	private String content;
 	
+	/** 작성자 ID */
 	@Column(nullable = false, length = 20)
 	private String userId;
 	
+	/** 작성자 이름 */
 	@Column(nullable = false, length = 100)
 	private String userName;
 	
