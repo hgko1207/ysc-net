@@ -31,15 +31,19 @@ function deleteCommon(url, id, name, Datatable, title) {
 	Swal.fire({
         title: title ? title : "선택된 " + name + "을 삭제하시겠습니까?",
 		icon: "warning",
-        confirmButtonText: "삭제",
-        confirmButtonClass: "btn btn-danger",
+		buttonsStyling: false,
         showCancelButton: true, 
-        cancelButtonText: "취소",
+        confirmButtonText: "<i class='la la-check'></i> 삭제",
+        cancelButtonText: "<i class='la la-close'></i> 취소",
+        customClass: {
+    		confirmButton: "btn btn-danger",
+    		cancelButton: "btn btn-default btn-outline-secondary"
+        }
     }).then(function(e) {
     	if (e.value) {
     		$.ajax({
 	    		url: url,
-	    		icon: "DELETE",
+	    		type: "DELETE",
 	    		data: {"id": id},
 	    		success: function(response) {
 	    			Datatable.search();
@@ -55,4 +59,8 @@ function deleteCommon(url, id, name, Datatable, title) {
 	    	}); 
     	}
     });
+}
+
+function isEmpty(str) {
+    return (!str || 0 === str.length);
 }

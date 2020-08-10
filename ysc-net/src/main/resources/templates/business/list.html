@@ -28,8 +28,8 @@
 				<div class="card card-custom gutter-b">
 					<div class="card-header flex-wrap py-3">
 						<div class="card-title">
-							<h3 class="card-label font-weight-bolder">
-								사업 리스트
+							<h3 class="card-label">
+								<i class="flaticon-list mr-3"></i>사업 리스트
 								<!-- <span class="d-block text-muted pt-2 font-size-sm"></span> -->
 							</h3>
 						</div>
@@ -54,6 +54,49 @@
 							<tbody class="text-center"></tbody>
 						</table>
 					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="updateBusinessModal" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">
+							<i class="flaticon-edit-1 mr-2"></i>사업 정보 수정
+						</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                  	<i aria-hidden="true" class="ki ki-close"></i>
+		             	</button>
+					</div>
+					<form id="updateForm" role="form" th:action="@{/business/update}" class="form-horizontal">
+						<div class="modal-body">
+							<input type="hidden" name="id">
+							<div class="form-group row">
+								<label class="col-form-label col-md-3 text-md-right">사업명 : </label>
+								<div class="col-md-8">
+									<input type="text" class="form-control" name="name" required>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-md-3 text-md-right">상세정보 : </label>
+								<div class="col-md-8">
+									<textarea id="content_autosize" class="form-control" name="content" rows="3" required></textarea>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-form-label col-md-3 text-md-right">이미지 : </label>
+								<div class="col-md-8">
+									<input type="file" class="file-input" name="file" accept="image/*" data-fouc>
+									<span class="form-text text-muted mt-2">※ 이미지 파일만 업로드 가능합니다.</span>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary mr-2"><i class="fas fa-edit mr-2"></i>Update</button>
+							<button type="button" class="btn btn-light-primary" data-dismiss="modal"><i class="la la-close mr-2"></i>Close</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

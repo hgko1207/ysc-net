@@ -28,7 +28,7 @@
 		
 		<div class="d-flex flex-column-fluid">
 			<div class="container">
-				<form id="registForm" role="form" method="post" th:action="@{/business/regist}" enctype="multipart/form-data">
+				<form id="registForm" role="form" th:action="@{/business/regist}" enctype="multipart/form-data">
 					<div class="card card-custom gutter-b">
 						<div class="card-body">
 							<div class="form-group row">
@@ -46,17 +46,17 @@
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label text-md-right">이미지 :</label>
 								<div class="col-md-6">
-									<input type="file" class="file-input" name="images" accept="image/*" data-fouc required>
+									<input type="file" class="file-input" name="file" accept="image/*" data-fouc required>
 									<span class="form-text text-muted mt-2">※ 이미지 파일만 업로드 가능합니다.</span>
 								</div>
 							</div>
 							
 						</div>
 						<div class="card-footer text-center">
-							<button type="submit" class="btn btn-primary mr-2">
+							<button type="submit" class="btn btn-primary mr-2 px-5">
 								<i class="la la-check mr-2"></i>등 록
 							</button>
-							<a th:href="@{/business/list}" class="btn btn-outline-secondary">
+							<a th:href="@{/business/list}" class="btn btn-outline-secondary px-5">
 								<i class="la la-close mr-2"></i>취 소
 							</a>
 						</div>
@@ -67,38 +67,6 @@
 	</th:block>
 
 	<th:block layout:fragment="script">
-		<script>
-		$(document).ready(function() { 
-			autosize($('#content_autosize'));
-		    
-		});
-		
-		$('#registForm').submit(function(e) {
-			e.preventDefault();
-
-			var form = $(this);
-		    var url = form.attr('action');
-		    var formData = new FormData($("#registForm")[0]);
-			
-		    $.ajax({
-				type: "POST",
-		       	url: url,
-		       	data: formData,
-		       	processData: false,
-		       	contentType: false,
-		       	success: function(response) {
-		       		Swal.fire({
-		   				title: "사업 등록이 되었습니다.", 
-		   				icon: "success"
-		   			}).then(function(e) {
-		   				location.replace(contextPath + "/business/list");
-		   			});
-		       	},
-		        error: function(response) {
-		        	Swal.fire({title: "사업 등록을 실패하였습니다.", type: "error"})
-		        }
-			});
-		});
-		</script>
+		 <script th:src="@{/js/pages/business.js}"></script>
 	</th:block>
 </html>

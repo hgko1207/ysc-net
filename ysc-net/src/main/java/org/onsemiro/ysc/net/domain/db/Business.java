@@ -8,10 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.onsemiro.ysc.net.domain.Domain;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -59,4 +61,7 @@ public class Business implements Domain {
 	
 	@UpdateTimestamp
 	private LocalDateTime updateDate;
+	
+	@Transient
+	private MultipartFile file;
 }

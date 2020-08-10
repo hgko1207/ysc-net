@@ -1,5 +1,5 @@
-var BusinessTable = function() {
-	var dataTable = {
+var BusinessManager = function() {
+	const dataTable = {
 		ele: "#businessTable",
 		table: null,
 		option: {
@@ -27,8 +27,10 @@ var BusinessTable = function() {
 				{ 
 			    	width: "10%",
 				    render: function(data, type, row, meta) {
-					    return '<button type="button" class="btn btn-sm btn-light-twitter btn-icon mr-2"><i class="far fa-edit"></i></button>' + 
-					    '<button type="button" class="btn btn-sm btn-light-youtube btn-icon"><i class="far fa-trash-alt"></i></button>';
+					    return `<button type="button" class="btn btn-sm btn-light-primary btn-icon mr-2"` + 
+					    `onClick="BusinessManager.modal(${row.id})"><i class="far fa-edit"></i></button>` + 
+					    `<button type="button" class="btn btn-sm btn-light-danger btn-icon"` +
+					    `onClick="BusinessManager._delete(${row.id})"><i class="far fa-trash-alt"></i></button>`;
 				    }
 				}
 			]
@@ -38,18 +40,94 @@ var BusinessTable = function() {
 			this.search();
 		},
 		search: function() {
-			var param = new Object();
+			const param = new Object();
 			Datatables.rowsAdd(this.table, contextPath + "/business/search", param);
 		}
+	}
+	
+	const actions = () => {
+		$('#registForm').submit(function(e) {
+			e.preventDefault();
+
+			var form = $(this);
+		    var url = form.attr('action');
+		    var formData = new FormData($("#registForm")[0]);
+			
+		    $.ajax({
+				type: "POST",
+		       	url: url,
+		       	data: formData,
+		       	processData: false,
+		       	contentType: false,
+		       	success: function(response) {
+		       		Swal.fire({
+		   				title: "사업 등록이 되었습니다.", 
+		   				icon: "success"
+		   			}).then(function(e) {
+		   				location.replace(contextPath + "/business/list");
+		   			});
+		       	},
+		        error: function(response) {
+		        	Swal.fire({title: "사업 등록을 실패하였습니다.", type: "error"})
+		        }
+			});
+		});
+		
+		$('#updateForm').submit(function(e) {
+			e.preventDefault();
+			var form = $(this);
+			var url = form.attr('action');
+			var formData = new FormData($("#updateForm")[0]);
+
+		    $.ajax({
+				type: "PUT",
+		       	url: url,
+		       	data: formData,
+		       	processData: false,
+		       	contentType: false,
+		       	success: function(response) {
+		       		$("#updateBusinessModal").modal('hide');
+		       		
+		       		Swal.fire({
+		   				title: "사업 수정 되었습니다.", 
+		   				icon: "success"
+		   			}).then(function(e) {
+		   				dataTable.search();
+		   			});
+		       	},
+		        error: function(response) {
+		        	Swal.fire({title: "사업 수정을 실패하였습니다.", icon: "error"})
+		        }
+			});
+		});
 	}
 	
 	return {
 		init: function() {
 			dataTable.init();
+			actions();
+		},
+		modal: function(id) {
+			$.ajax({
+	    		url: contextPath + "/business/get",
+	    		type: "GET",
+	    		data: {"id": id},
+	    		success: function(response) {
+	    			$('#updateForm input[name="id"]').val(response.id);
+	    			$('#updateForm input[name="name"]').val(response.name);
+	    			$('#updateForm textarea[name="content"]').val(response.content);
+	    			$("#updateBusinessModal").modal();
+	           	}
+	    	}); 
+		},
+		_delete: function(id) {
+			console.log(id);
+			deleteCommon(contextPath + "/business/delete", id, "사업", dataTable);
 		}
 	}
 }();
 
 $(document).ready(function() { 
-	BusinessTable.init();
+	BusinessManager.init();
+	autosize($('#content_autosize'));
 });
