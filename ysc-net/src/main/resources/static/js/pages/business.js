@@ -21,7 +21,7 @@ var BusinessManager = function() {
 				{
 					width: "15%",
 			    	render: function(data, type, row, meta) {
-			    		return moment(new Date(row.createDate)).format("YYYY-MM-DD HH:mm:ss");
+			    		return moment(new Date(row.updateDate)).format("YYYY-MM-DD HH:mm:ss");
 			    	}
 			    },
 				{ 
@@ -68,7 +68,7 @@ var BusinessManager = function() {
 		   			});
 		       	},
 		        error: function(response) {
-		        	Swal.fire({title: "사업 등록을 실패하였습니다.", type: "error"})
+		        	Swal.fire({title: "사업 등록을 실패하였습니다.", icon: "error"})
 		        }
 			});
 		});
@@ -121,7 +121,6 @@ var BusinessManager = function() {
 	    	}); 
 		},
 		_delete: function(id) {
-			console.log(id);
 			deleteCommon(contextPath + "/business/delete", id, "사업", dataTable);
 		}
 	}

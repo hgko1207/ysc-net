@@ -36,7 +36,7 @@ public class BusinessController {
 	}
 	
 	/**
-	 * 조회
+	 * 리스트 조회
 	 * @param param
 	 * @return
 	 */
@@ -61,7 +61,6 @@ public class BusinessController {
 	/**
 	 * 사업 등록
 	 * @param business
-	 * @param images
 	 * @return
 	 */
 	@PostMapping("regist")
@@ -86,7 +85,6 @@ public class BusinessController {
 	/**
 	 * 사업 정보 수정
 	 * @param business
-	 * @param images
 	 * @return
 	 */
 	@PutMapping("update")
@@ -120,7 +118,6 @@ public class BusinessController {
 	@DeleteMapping("delete")
 	@ResponseBody
 	public ResponseEntity<?> delete(int id) {
-		System.err.println(id);
 		if (businessService.delete(id)) {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}

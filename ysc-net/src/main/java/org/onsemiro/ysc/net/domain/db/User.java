@@ -38,9 +38,12 @@ public class User implements Domain {
 
 	@Column(nullable = false, length = 24)
 	private String password;
-
+	
 	@Column(nullable = false, length = 20)
 	private String name;
+
+	@Column(length = 45)
+	private String email;
 	
 	@Column(nullable = false, length = 20)
 	private String tel;

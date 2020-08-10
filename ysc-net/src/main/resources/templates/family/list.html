@@ -1,32 +1,61 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
-<th:block layout:fragment="content">
-	<div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
-		<div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-			<div class="d-flex align-items-center flex-wrap mr-2">
-				<h5 class="text-dark font-weight-bolder my-2 mr-5">임직원 관리</h5>
-				<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
-				<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-					<li class="breadcrumb-item">
-						<a href="" class="text-muted">Home</a>
-					</li>
-					<li class="breadcrumb-item">
-						<a href="" class="text-muted">임직원 관리</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	
-	<div class="d-flex flex-column-fluid">
-		<div class="container">
-			<div class="card">
-				<div class="card-body">
-				
+      
+	<th:block layout:fragment="content">
+		<div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
+			<div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+				<div class="d-flex align-items-center flex-wrap mr-2">
+					<h5 class="text-dark font-weight-bolder my-2 mr-5">임직원 관리</h5>
+					<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
+					<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+						<li class="breadcrumb-item">
+							<a href="" class="text-muted">Home</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="" class="text-muted">임직원 관리</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
-	</div>
-</th:block>
+		
+		<div class="d-flex flex-column-fluid">
+			<div class="container">
+				<div class="card card-custom gutter-b">
+					<div class="card-header flex-wrap py-3">
+						<div class="card-title">
+							<h3 class="card-label">
+								<i class="flaticon-list mr-3"></i>임직원 리스트
+							</h3>
+						</div>
+						<div class="card-toolbar">
+							<a th:href="@{/family/regist}" class="btn btn-primary font-weight-bolder">
+								<i class="fas fa-plus mr-2"></i>임직원 추가
+							</a>
+						</div>
+					</div>
+					<div class="card-body">
+						<table class="table table-bordered table-checkable" id="familyTable">
+							<thead class="text-center">
+								<tr>
+									<th>No</th>
+									<th>이름</th>
+									<th>부서</th>
+									<th>이메일</th>
+									<th>수정시간</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody class="text-center"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	
+	<th:block layout:fragment="script">
+        <script th:src="@{/js/pages/family.js}"></script>
+	</th:block>
 </html>

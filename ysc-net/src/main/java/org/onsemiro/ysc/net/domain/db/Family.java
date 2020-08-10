@@ -33,6 +33,9 @@ public class Family implements Domain {
 	@Column(nullable = false, length = 20)
 	private String name;
 	
+	@Column(length = 45)
+	private String email;
+	
 	@Column(nullable = false, length = 20)
 	private String tel;
 	

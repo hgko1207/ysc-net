@@ -3,6 +3,7 @@ package org.onsemiro.ysc.net.service.impl;
 import java.util.List;
 
 import org.onsemiro.ysc.net.domain.db.Family;
+import org.onsemiro.ysc.net.domain.param.SearchParam;
 import org.onsemiro.ysc.net.repository.FamilyRepository;
 import org.onsemiro.ysc.net.service.FamilyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,11 @@ public class FamilyServiceImpl implements FamilyService {
 
 	private boolean isNew(Family domain) {
 		return !familyRepository.existsById(domain.getId());
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Family> getList(SearchParam param) {
+		return familyRepository.findAll();
 	}
 }
