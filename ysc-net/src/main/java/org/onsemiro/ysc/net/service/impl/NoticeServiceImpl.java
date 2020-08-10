@@ -3,6 +3,7 @@ package org.onsemiro.ysc.net.service.impl;
 import java.util.List;
 
 import org.onsemiro.ysc.net.domain.db.Notice;
+import org.onsemiro.ysc.net.domain.param.SearchParam;
 import org.onsemiro.ysc.net.repository.NoticeRepository;
 import org.onsemiro.ysc.net.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,11 @@ public class NoticeServiceImpl implements NoticeService {
 
 	private boolean isNew(Notice domain) {
 		return !noticeRepository.existsById(domain.getId());
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<Notice> getList(SearchParam param) {
+		return noticeRepository.findAll();
 	}
 }

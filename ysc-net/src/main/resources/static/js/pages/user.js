@@ -1,6 +1,6 @@
-var FamilyManager = function() {
+var UserManager = function() {
 	const dataTable = {
-		ele: "#familyTable",
+		ele: "#userTable",
 		table: null,
 		option: {
 			columns: [
@@ -10,8 +10,8 @@ var FamilyManager = function() {
 			    		return meta.row + 1;
 			    	}
 			    },
+			    { data: "userId" },
 				{ data: "name" },
-				{ data: "dept" },
 				{ data: "tel" },
 				{ data: "email" },
 				{
@@ -23,9 +23,7 @@ var FamilyManager = function() {
 				{ 
 			    	width: "10%",
 				    render: function(data, type, row, meta) {
-					    return `<a href="${contextPath}/family/update?id=${row.id}" class="btn btn-sm btn-light-primary btn-icon mr-2">` + 
-					    `<i class="far fa-edit"></i></a>` + 
-					    `<button type="button" class="btn btn-sm btn-light-danger btn-icon"` +
+					    return `<button type="button" class="btn btn-sm btn-light-danger btn-icon"` +
 					    `onClick="FamilyManager._delete(${row.id})"><i class="far fa-trash-alt"></i></button>`;
 				    }
 				}
@@ -37,13 +35,11 @@ var FamilyManager = function() {
 		},
 		search: function() {
 			const param = new Object();
-			Datatables.rowsAdd(this.table, contextPath + "/family/search", param);
+			Datatables.rowsAdd(this.table, contextPath + "/user/search", param);
 		}
 	}
-	
 	const initActions = function() {
-		registCommon("임직원", FamilyManager);
-		updateCommon("임직원", FamilyManager);
+		
 	}
 	
 	return {
@@ -52,21 +48,11 @@ var FamilyManager = function() {
 			initActions();
 		},
 		_delete: function(id) {
-			deleteCommon(contextPath + "/family/delete", id, "임직원", dataTable);
-		},
-		success: function() {
-			location.replace(contextPath + "/family/list");
+			deleteCommon(contextPath + "/user/delete", id, "사용자", dataTable);
 		}
 	}
 }();
 
 $(document).ready(function() { 
-	FamilyManager.init();
-	
-	autosize($('#content_autosize'));
-	
-	$('input[name="tel"]').inputmask({
-		mask: "999-9999-9999",
-		placeholder: ""
-	});
+	UserManager.init();
 });
