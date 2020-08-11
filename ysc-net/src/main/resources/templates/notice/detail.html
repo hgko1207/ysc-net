@@ -2,6 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default_layout">
       
+    <th:block layout:fragment="css">
+    	<link th:href="@{/css/pages/notice.css}" rel="stylesheet"/>
+    </th:block>  
+    
 	<th:block layout:fragment="content">
 		<div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
 			<div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
@@ -25,7 +29,46 @@
 		
 		<div class="d-flex flex-column-fluid">
 			<div class="container">
-			
+				<div class="card card-custom notice-detail">
+				 	<div class="card-header bg-warning-o-30">
+				 		<h3 class="card-title">
+   							[[${notice.title}]]
+  						</h3>
+				 	</div>
+				 	<div class="card-body">
+				 		<div class="subject">
+							<label class="font-weight-bolder">작성자 :</label>
+							<label class="ml-1">[[${notice.userName}]]</label>
+							
+							<label class="font-weight-bolder ml-5">날짜 :</label>
+							<label class="ml-1">
+								<span th:text="${#temporals.format(notice.createDate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+							</label> 
+							
+							<label class="font-weight-bolder ml-5">조회수 :</label>
+							<label class="ml-1">[[${notice.hit}]]</label>
+						</div>
+						<div class="content">
+							<p>[[${notice.content}]]</p>
+						</div>
+						<div class="file text-center">
+							<div class="mx-2" th:each="file : ${images}">
+								<img th:src="@{'data:' + ${file.contentType} + ';base64,' + ${file.image}}" class="img-fluid" alt=""/>
+							</div>
+						</div>
+				 	</div>
+				 	<div class="card-footer d-flex justify-content-between align-items-center">
+						<a th:href="@{/notice/list}" class="btn btn-outline-secondary px-5"><i class="fas fa-list mr-2"></i>목 록</a>
+						<div>
+							<a th:href="@{'/notice/update/' + ${notice.id}}" class="btn btn-primary mr-2 px-5">
+								<i class="far fa-edit mr-2"></i>수 정
+							</a>
+							<button type="button" class="btn btn-danger px-5" th:onclick="'NoticeManager._delete(\'' + ${notice.id} + '\');'">
+								<i class="far fa-trash-alt mr-2"></i>삭 제
+							</button>
+						</div>
+					</div>
+			 	</div>
 			</div>
 		</div>
 	</th:block>

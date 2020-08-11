@@ -3,7 +3,9 @@ package org.onsemiro.ysc.net.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.onsemiro.ysc.net.domain.db.Notice;
 import org.onsemiro.ysc.net.domain.db.NoticeFile;
 import org.onsemiro.ysc.net.domain.param.SearchParam;
@@ -13,9 +15,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -103,6 +107,12 @@ public class NoticeController {
 		Notice notice = noticeService.get(id);
 		model.addAttribute("notice", notice);
 		
+		List<NoticeFile> images = notice.getFiles().stream().map(data -> {
+			data.setImage(Base64.encodeBase64String(data.getContent()));
+			return data;
+		}).collect(Collectors.toList());
+		model.addAttribute("images", images);
+		
 		notice.setHit(notice.getHit() + 1);
 		noticeService.update(notice);
 		
@@ -113,7 +123,35 @@ public class NoticeController {
 	 * 공지사항 수정 화면
 	 * @param model
 	 */
-	@GetMapping("update")
-	public void update(Model model) {
+	@GetMapping("update/{id}")
+	public String update(Model model, @PathVariable int id) {
+		Notice notice = noticeService.get(id);
+		model.addAttribute("notice", notice);
+		
+		return "notice/update";
+	}
+	
+	/**
+	 * 공지사항 수정 기능
+	 * @param notice
+	 * @return
+	 */
+	@PutMapping("update")
+	public ResponseEntity<?> update(Notice notice) {
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	/**
+	 * 공지사항 삭제 기능
+	 * @param id
+	 * @return
+	 */
+	@DeleteMapping("delete")
+	public ResponseEntity<?> delete(int id) {
+		if (noticeService.delete(id)) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 }

@@ -90,7 +90,7 @@ function updateModalCommon(url, object, name, Datatable, modalId) {
 }
 
 /**
- * 삭제 공통 기능
+ * 테이블에서 삭제 공통 기능
  * @returns
  */
 function deleteCommon(url, id, name, Datatable, title) {
@@ -113,6 +113,44 @@ function deleteCommon(url, id, name, Datatable, title) {
 	    		data: {"id": id},
 	    		success: function(response) {
 	    			Datatable.search();
+	           	},
+	            error: function(response) {
+	            	if (isEmpty(response.responseText)) {
+	            		Swal.fire({title: name + " 삭제를 실패하였습니다.", icon: "error"});
+	            	} else {
+	            		Swal.fire({title: response.responseText, icon: "error"});
+	            	}
+	            	
+	            }
+	    	}); 
+    	}
+    });
+}
+
+/**
+ * 삭제 공통 기능
+ * @returns
+ */
+function deletePageCommon(url, id, name, SettingManager, title) {
+	Swal.fire({
+        title: title ? title : "선택된 " + name + "을 삭제하시겠습니까?",
+		icon: "warning",
+		buttonsStyling: false,
+        showCancelButton: true, 
+        confirmButtonText: "<i class='la la-check'></i> 삭제",
+        cancelButtonText: "<i class='la la-close'></i> 취소",
+        customClass: {
+    		confirmButton: "btn btn-danger",
+    		cancelButton: "btn btn-default btn-outline-secondary"
+        }
+    }).then(function(e) {
+    	if (e.value) {
+    		$.ajax({
+	    		url: url,
+	    		type: "DELETE",
+	    		data: {"id": id},
+	    		success: function(response) {
+	    			SettingManager.success();
 	           	},
 	            error: function(response) {
 	            	if (isEmpty(response.responseText)) {

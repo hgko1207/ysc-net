@@ -52,7 +52,7 @@ var NoticeManager = function() {
 			
 		},
 		_delete: function(id) {
-			deleteCommon(contextPath + "/notice/delete", id, "공지사항", dataTable);
+			deletePageCommon(contextPath + "/notice/delete", id, "공지사항", NoticeManager);
 		},
 		success: function() {
 			location.replace(contextPath + "/notice/list");
