@@ -9,6 +9,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.onsemiro.ysc.net.domain.db.Notice;
 import org.onsemiro.ysc.net.domain.db.NoticeFile;
 import org.onsemiro.ysc.net.domain.param.SearchParam;
+import org.onsemiro.ysc.net.service.NoticeFileService;
 import org.onsemiro.ysc.net.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,9 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Autowired
+	private NoticeFileService noticeFileService;
 
 	@GetMapping("list")
 	public void list(Model model) {
@@ -138,7 +142,41 @@ public class NoticeController {
 	 */
 	@PutMapping("update")
 	public ResponseEntity<?> update(Notice notice) {
-		return new ResponseEntity<>(HttpStatus.OK);
+		Notice result = noticeService.get(notice.getId());
+		result.setTitle(notice.getTitle());
+		result.setContent(notice.getContent());
+		
+		try {
+			List<NoticeFile> noticeFiles = new ArrayList<>();
+			
+			for (MultipartFile file : notice.getImages()) {
+				String fileName = file.getOriginalFilename();
+				if (!fileName.isEmpty()) {
+					NoticeFile noticeFile = new NoticeFile();
+					noticeFile.setFileName(fileName);
+					noticeFile.setContent(file.getBytes());
+					noticeFile.setContentType(file.getContentType());
+					noticeFile.setNotice(notice);
+					
+					noticeFiles.add(noticeFile);
+				}
+			}
+			
+			if (noticeFiles.size() > 0) {
+				if (noticeFileService.delete(result.getFiles())) {
+					result.setFiles(noticeFiles);
+				}
+			}
+			
+			if (noticeService.update(result)) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+			
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);			
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	/**

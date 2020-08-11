@@ -49,7 +49,7 @@ var NoticeManager = function() {
 			registCommon("공지사항", NoticeManager);
 		},
 		update: function() {
-			
+			updateCommon("공지사항", NoticeManager);
 		},
 		_delete: function(id) {
 			deletePageCommon(contextPath + "/notice/delete", id, "공지사항", NoticeManager);

@@ -26,31 +26,35 @@
 		<div class="d-flex flex-column-fluid">
 			<div class="container">
 				<form id="updateForm" role="form" th:action="@{/family/update}">
-					<div class="card card-custom gutter-b">
+					<div class="card card-custom">
 						<div class="card-body">
 							<input type="hidden" th:value="${family.id}" name="id"/>
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label text-md-right">이름 :</label>
 								<div class="col-md-6">
-									<input class="form-control" type="text" name="name" th:value="${family.name}" required placeholder="이름을 입력하세요"/>
+									<input class="form-control" type="text" name="name" th:value="${family.name}"
+										placeholder="이름을 입력하세요" required/>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label text-md-right">부서 :</label>
 								<div class="col-md-6">
-									<input class="form-control" type="text" name="dept" th:value="${family.dept}" required placeholder="부서를 입력하세요"/>
+									<input class="form-control" type="text" name="dept" th:value="${family.dept}"
+										placeholder="부서를 입력하세요" required/>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label text-md-right">이메일 :</label>
 								<div class="col-md-6">
-									<input class="form-control" type="email" name="email" th:value="${family.email}" required placeholder="이메일을 입력하세요"/>
+									<input class="form-control" type="email" name="email" th:value="${family.email}" 
+										placeholder="이메일을 입력하세요" required/>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label text-md-right">연락처 :</label>
 								<div class="col-md-6">
-									<input class="form-control" type="text" name="tel" th:value="${family.tel}" required placeholder="연락처를 입력하세요"/>
+									<input class="form-control" type="text" name="tel" th:value="${family.tel}"  
+										placeholder="연락처를 입력하세요" required/>
 								</div>
 							</div>
 							<div class="form-group row">

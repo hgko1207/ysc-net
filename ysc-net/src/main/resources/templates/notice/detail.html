@@ -30,7 +30,7 @@
 		<div class="d-flex flex-column-fluid">
 			<div class="container">
 				<div class="card card-custom notice-detail">
-				 	<div class="card-header bg-warning-o-30">
+				 	<div class="card-header bg-warning-o-20">
 				 		<h3 class="card-title">
    							[[${notice.title}]]
   						</h3>
@@ -52,7 +52,7 @@
 							<p>[[${notice.content}]]</p>
 						</div>
 						<div class="file text-center">
-							<div class="mx-2" th:each="file : ${images}">
+							<div class="my-2" th:each="file : ${images}">
 								<img th:src="@{'data:' + ${file.contentType} + ';base64,' + ${file.image}}" class="img-fluid" alt=""/>
 							</div>
 						</div>
