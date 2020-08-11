@@ -13,12 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.onsemiro.ysc.net.domain.Domain;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sun.istack.NotNull;
 
@@ -39,12 +41,6 @@ public class Notice implements Domain {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@CreationTimestamp
-	private LocalDateTime createDate;
-	
-	@UpdateTimestamp
-	private LocalDateTime updateDate;
-	
 	/** 제목 */
 	@NotNull
 	private String title;
@@ -64,7 +60,16 @@ public class Notice implements Domain {
 	
 	private int hit;
 	
+	@CreationTimestamp
+	private LocalDateTime createDate;
+	
+	@UpdateTimestamp
+	private LocalDateTime updateDate;
+	
 	@OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
-	private List<UploadedFile> uploadedFiles;
+	private List<NoticeFile> files;
+	
+	@Transient
+	private MultipartFile[] images;
 }

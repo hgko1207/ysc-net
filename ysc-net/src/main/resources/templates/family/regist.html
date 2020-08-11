@@ -76,6 +76,11 @@
 	</th:block>
 
 	<th:block layout:fragment="script">
-		 <script th:src="@{/js/pages/family.js}"></script>
+		<script th:src="@{/js/pages/family.js}"></script>
+		<script>
+        $(document).ready(function() {
+        	FamilyManager.regist();
+        });
+        </script>
 	</th:block>
 </html>

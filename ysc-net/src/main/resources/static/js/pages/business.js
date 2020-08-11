@@ -5,13 +5,13 @@ var BusinessManager = function() {
 		option: {
 			columns: [
 				{
-			    	width: "6%",
+					data: null,
 			    	render: function(data, type, row, meta) {
 			    		return meta.row + 1;
 			    	}
 			    },
 			    {
-			    	width: "15%",
+			    	data: null,
 			    	render: function(data, type, row, meta) {
 			    		return `<img src="data:${row.imageType};base64,${row.image}" class="img-fluid"/>`;
 			    	}
@@ -19,13 +19,14 @@ var BusinessManager = function() {
 				{ data: "name" },
 				{ data: "userName" },
 				{
-					width: "15%",
+					data: "updateDate",
 			    	render: function(data, type, row, meta) {
 			    		return moment(new Date(row.updateDate)).format("YYYY-MM-DD HH:mm:ss");
 			    	}
 			    },
 				{ 
-			    	width: "10%",
+			    	data: null,
+			    	responsivePriority: -1,
 				    render: function(data, type, row, meta) {
 					    return `<button type="button" class="btn btn-sm btn-light-primary btn-icon mr-2"` + 
 					    `onClick="BusinessManager.modal(${row.id})"><i class="far fa-edit"></i></button>` + 
@@ -45,34 +46,7 @@ var BusinessManager = function() {
 		}
 	}
 	
-	const actions = () => {
-		$('#registForm').submit(function(e) {
-			e.preventDefault();
-
-			var form = $(this);
-		    var url = form.attr('action');
-		    var formData = new FormData($("#registForm")[0]);
-			
-		    $.ajax({
-				type: "POST",
-		       	url: url,
-		       	data: formData,
-		       	processData: false,
-		       	contentType: false,
-		       	success: function(response) {
-		       		Swal.fire({
-		   				title: "사업 등록이 되었습니다.", 
-		   				icon: "success"
-		   			}).then(function(e) {
-		   				location.replace(contextPath + "/business/list");
-		   			});
-		       	},
-		        error: function(response) {
-		        	Swal.fire({title: "사업 등록을 실패하였습니다.", icon: "error"})
-		        }
-			});
-		});
-		
+	const initUpdate = () => {
 		$('#updateForm').submit(function(e) {
 			e.preventDefault();
 			var form = $(this);
@@ -103,9 +77,12 @@ var BusinessManager = function() {
 	}
 	
 	return {
-		init: function() {
+		list: function() {
 			dataTable.init();
-			actions();
+			initUpdate();
+		},
+		regist: function() {
+			registCommon("사업", BusinessManager);
 		},
 		modal: function(id) {
 			$.ajax({
@@ -118,15 +95,18 @@ var BusinessManager = function() {
 	    			$('#updateForm textarea[name="content"]').val(response.content);
 	    			$("#updateBusinessModal").modal();
 	           	}
-	    	}); 
+	    	});
 		},
 		_delete: function(id) {
 			deleteCommon(contextPath + "/business/delete", id, "사업", dataTable);
+		},
+		success: function() {
+			location.replace(contextPath + "/business/list");
 		}
 	}
 }();
 
-$(document).ready(function() { 
+$(document).ready(function() {
 	BusinessManager.init();
 	autosize($('#content_autosize'));
 });

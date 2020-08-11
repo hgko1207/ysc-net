@@ -19,15 +19,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 /**
- * 첨부파일 관리 도메인
+ * 공지사항 첨부파일 관리 도메인
  * 
  * @author hgko
  *
  */
 @Entity
-@Table(name = "tb_uploaded_file")
+@Table(name = "tb_notice_file")
 @Data
-public class UploadedFile implements Domain {
+public class NoticeFile implements Domain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

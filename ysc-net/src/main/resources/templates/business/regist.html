@@ -68,5 +68,10 @@
 
 	<th:block layout:fragment="script">
 		 <script th:src="@{/js/pages/business.js}"></script>
+		 <script>
+        $(document).ready(function() {
+        	BusinessManager.regist();
+        });
+        </script>
 	</th:block>
 </html>

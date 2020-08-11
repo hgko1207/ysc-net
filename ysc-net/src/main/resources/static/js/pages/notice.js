@@ -5,27 +5,34 @@ var NoticeManager = function() {
 		option: {
 			columns: [
 				{
-			    	width: "5%",
+					data: null,
+					width: "8%",
 			    	render: function(data, type, row, meta) {
 			    		return meta.row + 1;
 			    	}
 			    },
-			    { data: "title" },
+			    {
+			    	data: "title",
+			    	render: function(data, type, row, meta) {
+			    		return `<a href="${contextPath}/notice/detail/${row.id}" ` +
+			    		 `class="text-dark text-hover-success font-weight-bolder">${row.title}</a>`;
+			    	}
+			    },
 				{ data: "userId" },
 				{
-					width: "15%",
+					data: "createDate",
 			    	render: function(data, type, row, meta) {
-			    		return moment(new Date(row.updateDate)).format("YYYY-MM-DD HH:mm:ss");
+			    		return moment(new Date(row.createDate)).format("YYYY-MM-DD HH:mm:ss");
 			    	}
 			    },
 			    { 
-			    	width: "8%",
+			    	width: "10%",
 			    	data: "hit" 
 	    		},
 			]
 		},
 		init: function() {
-			this.table = Datatables.order(this.ele, this.option, 1);
+			this.table = Datatables.order(this.ele, this.option, 3);
 			this.search();
 		},
 		search: function() {
@@ -33,22 +40,26 @@ var NoticeManager = function() {
 			Datatables.rowsAdd(this.table, contextPath + "/notice/search", param);
 		}
 	}
-	const initActions = function() {
-		
-	}
 	
 	return {
-		init: function() {
+		list: function() {
 			dataTable.init();
-			initActions();
+		},
+		regist: function() {
+			registCommon("공지사항", NoticeManager);
+		},
+		update: function() {
+			
 		},
 		_delete: function(id) {
 			deleteCommon(contextPath + "/notice/delete", id, "공지사항", dataTable);
+		},
+		success: function() {
+			location.replace(contextPath + "/notice/list");
 		}
 	}
 }();
 
-$(document).ready(function() { 
-	NoticeManager.init();
+$(document).ready(function() {
 	autosize($('#content_autosize'));
 });

@@ -5,7 +5,7 @@ var FamilyManager = function() {
 		option: {
 			columns: [
 				{
-			    	width: "6%",
+					data: null,
 			    	render: function(data, type, row, meta) {
 			    		return meta.row + 1;
 			    	}
@@ -15,13 +15,14 @@ var FamilyManager = function() {
 				{ data: "tel" },
 				{ data: "email" },
 				{
-					width: "15%",
+					data: "updateDate",
 			    	render: function(data, type, row, meta) {
 			    		return moment(new Date(row.updateDate)).format("YYYY-MM-DD HH:mm:ss");
 			    	}
 			    },
 				{ 
-			    	width: "10%",
+			    	data: null,
+			    	responsivePriority: -1,
 				    render: function(data, type, row, meta) {
 					    return `<a href="${contextPath}/family/update?id=${row.id}" class="btn btn-sm btn-light-primary btn-icon mr-2">` + 
 					    `<i class="far fa-edit"></i></a>` + 
@@ -41,15 +42,15 @@ var FamilyManager = function() {
 		}
 	}
 	
-	const initActions = function() {
-		registCommon("임직원", FamilyManager);
-		updateCommon("임직원", FamilyManager);
-	}
-	
 	return {
-		init: function() {
+		list: function() {
 			dataTable.init();
-			initActions();
+		},
+		regist: function() {
+			registCommon("임직원", FamilyManager);
+		},
+		update: function() {
+			updateCommon("임직원", FamilyManager);
 		},
 		_delete: function(id) {
 			deleteCommon(contextPath + "/family/delete", id, "임직원", dataTable);
@@ -61,8 +62,6 @@ var FamilyManager = function() {
 }();
 
 $(document).ready(function() { 
-	FamilyManager.init();
-	
 	autosize($('#content_autosize'));
 	
 	$('input[name="tel"]').inputmask({

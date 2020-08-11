@@ -1,5 +1,5 @@
 $.extend( $.fn.dataTable.defaults, {
-	autoWidth: false,
+//	autoWidth: false,
     //dom: '<"datatable-header"fl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
     dom: `<'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
     language: {
@@ -20,6 +20,7 @@ $.extend( $.fn.dataTable.defaults, {
 var Datatables = {
 	basic: function(id, tableOption, info) {
 		var table = $(id).DataTable({
+			responsive: true,
 			language: {
 				info: info ? info : " _TOTAL_ 개의 데이터가 있습니다." 
 			},
@@ -31,16 +32,18 @@ var Datatables = {
 	},
 	order: function(id, tableOption, num, info) {
 		var table = $(id).DataTable({
+			responsive: true,
+			processing: true,
 			language: {
 				info: info ? info : " _TOTAL_ 개의 데이터가 있습니다." 
 			},
-		    columns: tableOption ? tableOption.columns : null,
-		    columnDefs: [
+			columns: tableOption ? tableOption.columns : null,
+			columnDefs: [
 		    	{ orderable: true, className: 'reorder', targets: 0 },
 		    	{ orderable: true, className: 'reorder', targets: num },
 		    	{ orderable: false, targets: '_all' }
 		    ],
-		    order: [[num, 'desc']],
+			order: [[num, 'desc']],
 		});
 		
 		return table;
@@ -55,6 +58,8 @@ var Datatables = {
 			contentType: "application/json",
 			success: function(data) {
 				table.rows.add(data).draw();
+				table.responsive.recalc();
+				console.log(table.responsive);
 		   	}
 		});
 	},
