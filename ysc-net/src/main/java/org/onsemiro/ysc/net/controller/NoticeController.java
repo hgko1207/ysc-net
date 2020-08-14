@@ -138,7 +138,7 @@ public class NoticeController {
 		return "notice/detail";
 	}
 	
-	public List<String> convertPDFtoImage(byte[] bytesPDF) {
+	private List<String> convertPDFtoImage(byte[] bytesPDF) {
 		List<String> imageDatas = new ArrayList<>();
 		
         try {

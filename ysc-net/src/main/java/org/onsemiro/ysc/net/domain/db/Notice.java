@@ -66,7 +66,7 @@ public class Notice implements Domain {
 	@UpdateTimestamp
 	private LocalDateTime updateDate;
 	
-	@OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<NoticeFile> files;
 	
