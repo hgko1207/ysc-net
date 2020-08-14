@@ -14,12 +14,18 @@
 	margin-bottom: 0;
 }
 
+.notice-detail .file {
+    padding: 12px 20px;
+    border-bottom: 1px solid #ecf0f3;
+    font-size: 1.1rem;
+}
+
 .notice-detail .content {
     padding: 1.3rem 1.3rem;
     min-height: 250px;
 }
 
-.notice-detail .file {
+.notice-detail .content-file {
 	border-top: 1px solid #ecf0f3;
 	padding: 1.3rem 1.3rem;
 }

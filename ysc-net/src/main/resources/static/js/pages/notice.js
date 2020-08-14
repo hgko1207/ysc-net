@@ -1,4 +1,4 @@
-var NoticeManager = function() {
+const NoticeManager = function() {
 	const dataTable = {
 		ele: "#noticeTable",
 		table: null,
@@ -13,16 +13,17 @@ var NoticeManager = function() {
 			    },
 			    {
 			    	data: "title",
+//			    	className: "text-left",
 			    	render: function(data, type, row, meta) {
 			    		return `<a href="${contextPath}/notice/detail/${row.id}" ` +
 			    		 `class="text-dark text-hover-success font-weight-bolder">${row.title}</a>`;
 			    	}
 			    },
-				{ data: "userId" },
+				{ data: "userName" },
 				{
 					data: "createDate",
 			    	render: function(data, type, row, meta) {
-			    		return moment(new Date(row.createDate)).format("YYYY-MM-DD HH:mm:ss");
+			    		return moment(new Date(row.createDate)).format("YYYY-MM-DD");
 			    	}
 			    },
 			    { 
@@ -32,7 +33,7 @@ var NoticeManager = function() {
 			]
 		},
 		init: function() {
-			this.table = Datatables.order(this.ele, this.option, 3);
+			this.table = Datatables.noOrder(this.ele, this.option);
 			this.search();
 		},
 		search: function() {

@@ -1,11 +1,21 @@
 package org.onsemiro.ysc.net.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.onsemiro.ysc.net.domain.EnumType.FileType;
 import org.onsemiro.ysc.net.domain.db.Notice;
 import org.onsemiro.ysc.net.domain.db.NoticeFile;
 import org.onsemiro.ysc.net.domain.param.SearchParam;
@@ -112,7 +122,12 @@ public class NoticeController {
 		model.addAttribute("notice", notice);
 		
 		List<NoticeFile> images = notice.getFiles().stream().map(data -> {
-			data.setImage(Base64.encodeBase64String(data.getContent()));
+			if (data.getContentType().contains(FileType.PDF.getName())) {
+				data.setImage(Base64.encodeBase64String(data.getContent()));
+				data.setImages(convertPDFtoImage(data.getContent()));
+			} else {
+				data.setImage(Base64.encodeBase64String(data.getContent()));
+			}
 			return data;
 		}).collect(Collectors.toList());
 		model.addAttribute("images", images);
@@ -122,6 +137,30 @@ public class NoticeController {
 		
 		return "notice/detail";
 	}
+	
+	public List<String> convertPDFtoImage(byte[] bytesPDF) {
+		List<String> imageDatas = new ArrayList<>();
+		
+        try {
+        	InputStream inputStream = new ByteArrayInputStream(bytesPDF);
+        	PDDocument document = PDDocument.load(inputStream);
+        	PDFRenderer renderer = new PDFRenderer(document);
+        	
+        	for (int page = 0; page < document.getNumberOfPages(); page++) {
+        		ByteArrayOutputStream out = new ByteArrayOutputStream();
+        		BufferedImage image = renderer.renderImageWithDPI(page, 96, ImageType.RGB);
+            	ImageIO.write(image , "jpg", out);
+            	imageDatas.add(Base64.encodeBase64String(out.toByteArray()));
+            	out.close();
+        	}
+
+        	document.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+        return imageDatas;
+    }
 	
 	/**
 	 * 공지사항 수정 화면

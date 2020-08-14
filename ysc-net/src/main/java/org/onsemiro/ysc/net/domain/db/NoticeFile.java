@@ -1,6 +1,7 @@
 package org.onsemiro.ysc.net.domain.db;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,6 +52,9 @@ public class NoticeFile implements Domain {
 	
 	@Transient
 	private String image;
+	
+	@Transient
+	private List<String> images;
 	
 	@ManyToOne
 	@JoinColumn(name = "notice_id")
