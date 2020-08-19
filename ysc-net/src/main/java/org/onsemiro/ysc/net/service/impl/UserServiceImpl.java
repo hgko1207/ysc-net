@@ -3,6 +3,7 @@ package org.onsemiro.ysc.net.service.impl;
 import java.util.List;
 
 import org.onsemiro.ysc.net.domain.db.User;
+import org.onsemiro.ysc.net.domain.param.SearchParam;
 import org.onsemiro.ysc.net.repository.UserRepository;
 import org.onsemiro.ysc.net.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User login(String username, String password) {
 		return userRepository.findByUserIdAndPassword(username, password);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<User> getList(SearchParam param) {
+		return userRepository.findAll();
 	}
 }

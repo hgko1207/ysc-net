@@ -6,14 +6,14 @@
 		<div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
 			<div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
 				<div class="d-flex align-items-center flex-wrap mr-2">
-					<h5 class="text-dark font-weight-bolder my-2 mr-5">공지사항</h5>
+					<h5 class="text-dark font-weight-bolder my-2 mr-5">자랑합니다</h5>
 					<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
 					<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
 						<li class="breadcrumb-item">
 							<a href="" class="text-muted">Home</a>
 						</li>
 						<li class="breadcrumb-item">
-							<a href="" class="text-muted">공지사항</a>
+							<a href="" class="text-muted">자랑합니다</a>
 						</li>
 					</ul>
 				</div>
@@ -23,31 +23,19 @@
 		<div class="d-flex flex-column-fluid">
 			<div class="container">
 				<div class="card card-custom gutter-b card-stretch">
-					<div class="card-header flex-wrap py-3">
+					<div class="card-header">
 						<div class="card-title">
 							<h3 class="card-label">
-								<i class="flaticon-list mr-3"></i>공지사항(알립니다) 목록
+								<i class="flaticon-list mr-3"></i>자랑합니다 목록
 							</h3>
 						</div>
 						<div class="card-toolbar">
-							<a th:href="@{/notice/regist}" class="btn btn-primary font-weight-bolder">
-								<i class="fas fa-plus mr-2"></i>공지사항 추가
+							<a href="#" class="btn btn-primary font-weight-bolder">
+								<i class="fas fa-plus mr-2"></i>글 추가
 							</a>
 						</div>
 					</div>
 					<div class="card-body">
-						<table class="table table-bordered" id="noticeTable">
-							<thead class="text-center">
-								<tr>
-									<th>번호</th>
-							  		<th>글제목</th>
-							  		<th>작성자</th>
-							  		<th>작성일</th>
-							  		<th>조회</th>
-								</tr>
-							</thead>
-							<tbody class="text-center"></tbody>
-						</table>
 					</div>
 				</div>
 			</div>
@@ -55,11 +43,6 @@
 	</th:block>
 	
 	<th:block layout:fragment="script">
-        <script th:src="@{/js/pages/notice.js}"></script>
-        <script>
-        $(document).ready(function() {
-        	NoticeManager.list();
-        });
-        </script>
+        <script th:src="@{/js/pages/user.js}"></script>
 	</th:block>
 </html>

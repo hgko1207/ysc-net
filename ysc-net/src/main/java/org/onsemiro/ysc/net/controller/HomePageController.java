@@ -3,22 +3,19 @@ package org.onsemiro.ysc.net.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 메인 컨트롤러 클래스
+ * 홈 화면 관리 컨트롤러 클래스
  * 
  * @author hgko
  *
  */
 @Controller
-public class HomeController {
+@RequestMapping("homepage")
+public class HomePageController {
 
-	@GetMapping("/")
-    public String index(Model model) {
-		 return "redirect:home";
-    }
-	
-	@GetMapping("home")
-	public void home(Model model) {
+	@GetMapping("list")
+	public void list(Model model) {
 	}
 }
